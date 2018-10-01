@@ -1,0 +1,127 @@
+\documentclass[page number]{beamer}
+\usetheme[sectionpage=none,numbering=fraction,progressbar=foot]{metropolis}
+
+\usepackage{pgf,tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{positioning,shapes,fit}
+\usepackage{xcolor}
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+\makeatletter
+\makeatother
+
+\setcounter{tocdepth}{1} % remove subsection from table of contents
+
+% colors
+\definecolor{mDarkRed}{HTML}{6F1616}
+\definecolor{mDarkGreen}{HTML}{106235}
+\definecolor{mTeal}{HTML}{112233}
+\definecolor{mBlack}{HTML}{000000}
+\setbeamercolor{normal text}{fg=mTeal}
+\setbeamercolor{alerted text}{fg=mDarkRed}
+\setbeamercolor{example text}{fg=mDarkGreen}
+\setbeamercolor{title separator}{fg=purple,bg=mBlack}
+
+\def\outline{
+  \begin{frame}[plain,noframenumbering]
+    \frametitle{Outline}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+
+\begin{document}
+\title[The Power of Clause Learning]{Understanding the Power of Clause Learning}
+
+\author{Paul Beame \hfill Henry Kautz \hfill Ashish Sabharwal}
+\vfill
+\date{
+  \vfill
+  Aur\`ele Barri\`ere
+  \vfill
+  \textbf{03/10/18}}
+
+\def\outline{
+  \begin{frame}[plain,noframenumbering]
+    \frametitle{Outline}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\begin{frame}[plain,noframenumbering]
+  \vspace{-2cm}
+  \maketitle
+  \vspace{-4cm}
+\end{frame}
+
+%% \metroset{sectionpage=none}
+
+\metroset{sectionpage=progressbar}
+
+\begin{frame}{Context}
+  \begin{block}{Published in IJCAI in 2003}
+  \end{block}
+  \vfill
+  \begin{block}{Motivation}
+    \begin{itemize}
+    \item Deciding SAT as quickly as possible has many uses.
+    \item DPLL-based algorithms work well.
+    \item The most efficient algorithms are just variants of DPLL with clause learning.
+    \item No formal work to explain the success of clause learning.
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Reminders and definitions}
+  % SAT and DPLL
+  % clause learning
+  % General and regular Resolution
+  % restarts
+\end{frame}
+
+\begin{frame}{Contribution}
+  % the 3 points
+  % math framework to analyze clause learning
+  % characterization of its power
+  % ways to improve solver performance?
+\end{frame}
+
+\begin{frame}{Comparing SAT methods}
+  % shortest proof of UNSAT
+  % source
+\end{frame}
+
+\begin{frame}{Known Results}
+  % see diagram
+\end{frame}
+
+\begin{frame}{New Results}
+  % see diagram
+\end{frame}
+
+\begin{frame}{Learning Schemes}
+  % Existing, and FirstNEwCut
+\end{frame}
+
+\begin{frame}{Clause Learning can be better than Regular}
+  % formulas, implications etc
+  % section 5
+\end{frame}
+
+\begin{frame}{Clause Learning and General Resolution}
+  % section 4
+  % equivalent with restarts
+\end{frame}
+
+\begin{frame}{Experimental Results}
+  % section 6
+\end{frame}
+
+\begin{frame}{Conclusion}
+\end{frame}
+
+\begin{frame}{Overview}
+\end{frame}
+
+\end{document}
