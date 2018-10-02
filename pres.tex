@@ -73,35 +73,134 @@
   \end{block}
 \end{frame}
 
-\begin{frame}{Reminders and definitions}
-  % SAT and DPLL
-  % clause learning
-  % General and regular Resolution
-  % restarts
+\begin{frame}{The SAT decision problem}
+  \begin{block}{SAT}
+    Given a Conjunctive Normal Form (CNF) formula, decide if there exists an assignment that satisfies it. \\
+    NP-complete.
+  \end{block}
+  \vfill
+  \begin{exampleblock}{Techniques}
+    \begin{itemize}
+    \item DPLL and its variants, \textbf{clause learning} and \textbf{restarts}
+    \item General Resolution
+    \item Regular Resolution
+    \item \dots
+    \end{itemize}
+  \end{exampleblock}
 \end{frame}
 
-\begin{frame}{Contribution}
-  % the 3 points
-  % math framework to analyze clause learning
-  % characterization of its power
-  % ways to improve solver performance?
+\begin{frame}{Davis-Putnam-Logemann-Loveland (DPLL)}
+  \begin{block}{DPLL algorithm}
+    Branch on variables (following a \textbf{branching order}). \\
+    Apply \textbf{unit propagation} and \textbf{pure literal} rules.\\
+    If a conflict is found, backtrack to the last choice.
+  \end{block}
+  \vfill
+  \begin{exampleblock}{Clause Learning}
+    At each conflict, draw a conflict graph then learn a new clause.\\
+    Very efficient.
+  \end{exampleblock}
+  \vfill
+  \begin{exampleblock}{Restarts}
+    At any point during the execution of the algorithm, forget all your choices and start from the beginning, while keeping the learned clauses.
+  \end{exampleblock}
+      
 \end{frame}
 
-\begin{frame}{Comparing SAT methods}
-  % shortest proof of UNSAT
-  % source
+\begin{frame}{Resolution Proof Systems}
+  \begin{block}{General Resolution}
+    $$(x \vee A) \wedge (\neg x\vee B) \wedge C \quad\sim_{\text{SAT}}\quad (A \vee B) \wedge C$$
+    Resolving on $x$. Applying the resolution rule and getting to the empty clause means the formula is unsatisfiable.
+  \end{block}
+  \vfill
+  \begin{alertblock}{General Resolution is not efficiently implementable}
+    It's hard to find the good choices for the variables to resolve on.
+  \end{alertblock}
+  \vfill
+  \begin{block}{Regular Resolution Variant}
+    Any variable can be resolved upon at most once.\\
+    Used in the original DP in 1960.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Comparing SAT methods for unsatisfiable formulas}
+  \begin{block}{Proof Complexity [Cook and Reckhow, 1977]}
+    Compare the size of the shortest proof of unsatisfiability.
+  \end{block}
+  \vfill
+  \begin{block}{Size of the Shortest Proof?}
+    \begin{itemize}
+    \item Resolution systems: number of times we applied the resolution rule.
+    \item DPLL-based: number of choices made (including the ones leading to conflicts).
+    \end{itemize}
+  \end{block}
+  \vfill
+  \begin{alertblock}{Unsatisfiable Formulas Only}
+  \end{alertblock}
+
+\end{frame}
+
+\begin{frame}{Comparing SAT methods for unsatisfiable formulas}
+  \begin{exampleblock}{Best-Case Scenario}
+    We are not evaluating heuristics, only the technique to prove unsatisfiability.\\
+    This framework doesn't account for the difficulty of making the right choices.\\
+    This framework doesn't account for the time to apply rules.
+  \end{exampleblock}
+  \vfill
+  \begin{block}{Relevance for satisfiable formulas}
+    [Achlioptas, Beame, Molloy, 2001] shows that good complexity results on unsatisfiable formulas imply good results on satisfiable formulas as well.
+  \end{block}
+    
 \end{frame}
 
 \begin{frame}{Known Results}
+  TODO: diagram
   % see diagram
+\end{frame}
+  
+\begin{frame}{Contribution}
+  \begin{exampleblock}{Contributions}
+    \begin{itemize}
+    \item The first formal analysis of Clause Learning
+    \item A new learning scheme, \textbf{FirstNewCut}
+    \item \textbf{DPLL + clause learning} can be better than \textbf{Regular Resolution}
+    \item \textbf{DPLL + clause learning + restarts} is equivalent \textbf{to General Resolution}
+    \item Experimental Results
+    \end{itemize}
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}{New Results}
+  TODO: diagram
   % see diagram
 \end{frame}
 
 \begin{frame}{Learning Schemes}
-  % Existing, and FirstNEwCut
+  \begin{block}{A cut of the conflict graph}
+    At each conflict, cutting the conflict graph gives you a clause to learn with equivalent satisfiability.\\
+    Here we consider determinist schemes that only use the variables used in the conflict.
+  \end{block}
+  \vfill
+  \begin{block}{Existing schemes}
+    \begin{itemize}
+    \item Decision clause
+    \item \texttt{rel-sat}
+    \item 1UIP, 2UIP\dots
+    \item \dots
+    \end{itemize}
+  \end{block}
+  
+\end{frame}
+
+\begin{frame}{FirstNewCut}
+  \begin{exampleblock}{FirstNewCut}
+    Non-trivial, non previously known clause closest to the conflict.
+  \end{exampleblock}
+  \vfill
+  \begin{alertblock}{Only used for the proofs}
+  \end{alertblock}
+  \vfill
+  TODO: schema
 \end{frame}
 
 \begin{frame}{Clause Learning can be better than Regular}
@@ -109,7 +208,7 @@
   % section 5
 \end{frame}
 
-\begin{frame}{Clause Learning and General Resolution}
+\begin{frame}{Clause Learning + Restarts equivalent to General Resolution}
   % section 4
   % equivalent with restarts
 \end{frame}
