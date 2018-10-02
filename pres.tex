@@ -38,7 +38,7 @@
 \vfill
 \date{
   \vfill
-  Aur\`ele Barri\`ere
+  \textbf{Presentation:}\quad Aur\`ele Barri\`ere
   \vfill
   \textbf{03/10/18}}
 
@@ -154,8 +154,22 @@
 \end{frame}
 
 \begin{frame}{Known Results}
-  TODO: diagram
-  % see diagram
+  \begin{center}
+    \begin{tikzpicture}[scale=0.53]
+      \draw (0,0) circle (2cm);
+      \draw (0,2) circle (4cm);
+      \draw (0,1) circle (7cm);
+      \node[] at (0,1) {DPLL};
+      \node[] at (0,3) {Regular Resolution};
+      \node[] at (0,7.2) {General Resolution};
+      \draw[fill=black] (-2.8,0) circle (0.3cm);
+      \draw (-8,0) -- (-2.8,0);
+      \node[] at (-9,0) {2000};
+      \draw[fill=black] (5.5,0) circle (0.3cm);
+      \draw (8,0) --  (5.5,0);
+      \node[] at (9,0) {2002};
+    \end{tikzpicture}
+  \end{center}
 \end{frame}
   
 \begin{frame}{Contribution}
@@ -170,9 +184,50 @@
   \end{exampleblock}
 \end{frame}
 
+\begin{frame}{Known Results}
+  \begin{center}
+    \begin{tikzpicture}[scale=0.53]
+      \draw (0,0) circle (2cm);
+      \draw (0,2) circle (4cm);
+      \draw (0,1) circle (7cm);
+      \node[] at (0,1) {DPLL};
+      \node[] at (0,3) {Regular Resolution};
+      \node[] at (0,7.2) {General Resolution};
+      \draw[fill=black] (-2.8,0) circle (0.3cm);
+      \draw (-8,0) -- (-2.8,0);
+      \node[] at (-9,0) {2000};
+      \draw[fill=black] (5.5,0) circle (0.3cm);
+      \draw (8,0) --  (5.5,0);
+      \node[] at (9,0) {2002};
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
 \begin{frame}{New Results}
-  TODO: diagram
-  % see diagram
+  \begin{center}
+    \begin{tikzpicture}[scale=0.53]
+      \draw (0,0) circle (2cm);
+      \draw (0,2) circle (4cm);
+      \draw[color=red] (0,-2) circle (4cm);
+      \draw (0,1) circle (7cm);
+      \draw[color=red] (0,-1) circle (1cm);
+      \node[] at (0,1) {DPLL};
+      \node[] at (0,3) {Regular Resolution};
+      \node[] at (0,7.2) {General Resolution};
+      \node[] at (0,-3) {DPLL + CL};
+      \node[] at (0,-0.8) {\tiny Trivial};
+      \node[] at (0,-1.2) {\tiny Resolution};
+      \node[] at (0,6.5) {\color{red}= DPLL + CL + Restarts};
+      \draw[fill=black] (-2.8,0) circle (0.3cm);
+      \draw (-8,0) -- (-2.8,0);
+      \node[] at (-9,0) {2000};
+      \draw[fill=black] (5.5,0) circle (0.3cm);
+      \draw (8,0) --  (5.5,0);
+      \node[] at (9,0) {2002};
+      \draw[fill=red] (3,-2) circle (0.3cm);
+      \draw[color=red] (3,-2) --  (5.5,0);
+    \end{tikzpicture}
+  \end{center}
 \end{frame}
 
 \begin{frame}{Learning Schemes}
@@ -200,27 +255,139 @@
   \begin{alertblock}{Only used for the proofs}
   \end{alertblock}
   \vfill
-  TODO: schema
+  \begin{center}
+    \includegraphics[scale=0.28]{cut.png}
+  \end{center}
 \end{frame}
 
 \begin{frame}{Clause Learning can be better than Regular}
-  % formulas, implications etc
-  % section 5
+  \begin{exampleblock}{Goal}
+    Find a family of CNF unsatisfiable formulas, such that it is solved in exponential size by Regular Resolution, but in polynomial size by DPLL + clause learning.
+  \end{exampleblock}
+  \vfill
+  \begin{block}{Method}
+    \begin{itemize}
+    \item Start with a family of function that separates Regular and General Resolution.
+    \item Define a transformation $PT(f,\pi)$ such that solving $PT(f,\pi)$ with DPLL + CL is as long as with General Resolution. But the Regular Resolution is the same size as for $f$.
+    \end{itemize}
+  \end{block}
+      
+\end{frame}
+
+\begin{frame}{Clause Learning can be better than Regular - Transformation}
+  $f$ unsatisfiable formula with polynomial size General Resolution proof $\pi$ and exponential size Regular Resolution proof.
+  \vfill
+  \begin{block}{Defining $PT(f,\pi)$}
+    All clauses of $f$ and, for each $C\in \pi$, for each $x\in C$, the clause $(\neg x\vee t_C)$ where $t_c$ is a new variable.
+  \end{block}
+  \vfill
+  \begin{alertblock}{Solving with Regular Resolution}
+    ``regularity of resolution proofs is preserved under restriction''\\
+    Exponential size proof.
+  \end{alertblock}
+  \vfill
+  \begin{exampleblock}{Solving with DPLL+CL}
+    Branch on $\neg t_C$ for each $C\in\pi$.\\
+    With \textbf{FirstNewCut} you learn $C$. Backtrack on $t_C$.\\
+    Polynomial: for each branch on $\neg t_c$ you get one clause of $\pi$.
+  \end{exampleblock}
+    
+
 \end{frame}
 
 \begin{frame}{Clause Learning + Restarts equivalent to General Resolution}
-  % section 4
-  % equivalent with restarts
+  \begin{exampleblock}{Goals: 2 simulations}
+    \begin{itemize}
+    \item If $f$ has a General polynomial proof, then it also has one with DPLL+CL+restarts.
+    \item If $f$ has a DPLL+CL+restarts polynomial proof, then it also has one with General Resolution.
+    \end{itemize}
+  \end{exampleblock}
+  \vfill
+  \begin{block}{First Simulation}
+    When the resolution proof resolves $(A\vee x) \wedge (B\vee \neg x)$ to get $C$, branch on the negation of the literals of $A$ and $B$.
+    You learn $C$ then restart.
+  \end{block}
+
+\end{frame}
+
+\begin{frame}{Clause Learning + Restarts equivalent to General Resolution}
+  \begin{exampleblock}{Goals: 2 simulations}
+    \begin{itemize}
+    \item If $f$ has a General polynomial proof, then it also has one with DPLL+CL+restarts.
+    \item If $f$ has a DPLL+CL+restarts polynomial proof, then it also has one with General Resolution.
+    \end{itemize}
+  \end{exampleblock}
+  \vfill
+  \begin{block}{Second simulation}
+    Let $f_n$ with DPLL proof of size $s$.\\
+    A previous results shows that in at most $n$ steps we can derive each learned clause with General Resolution.\\
+    The resulting proof has size $n\times s$.
+  \end{block}
 \end{frame}
 
 \begin{frame}{Experimental Results}
-  % section 6
+  \begin{center}
+    \includegraphics[scale=0.26]{table.png}
+  \end{center}
 \end{frame}
 
 \begin{frame}{Conclusion}
+  \begin{exampleblock}{Clause Learning}
+    \begin{itemize}
+    \item has potential for small proofs
+    \item with restarts, has the same theoretical lower bound as General Resolution
+    \end{itemize}
+  \end{exampleblock}
+  \vfill
+  \begin{alertblock}{Good Heuristics are still important!}
+  \end{alertblock}
+  \vfill
+  \begin{block}{Open Problems}
+    \begin{itemize}
+    \item Which formula for which technique?
+    \item Is Regular $\varsubsetneq$ DPLL+CL?
+    \end{itemize}
+  \end{block}
 \end{frame}
 
 \begin{frame}{Overview}
+  103 citations in 15 years. The following paper has 286.
+  \vfill
+  \begin{alertblock}{Questions}
+    \begin{itemize}
+    \item Experimental Results on transformed pebbling formulas?
+    \item Non-deterministic instead of \textbf{FirstNewCut}?
+    \item Satisfiable Formulas
+    \end{itemize}
+  \end{alertblock}
 \end{frame}
+
+\begin{frame}{New Results}
+  \begin{center}
+    \begin{tikzpicture}[scale=0.53]
+      \draw (0,0) circle (2cm);
+      \draw (0,2) circle (4cm);
+      \draw[color=red] (0,-2) circle (4cm);
+      \draw (0,1) circle (7cm);
+      \draw[color=red] (0,-1) circle (1cm);
+      \node[] at (0,1) {DPLL};
+      \node[] at (0,3) {Regular Resolution};
+      \node[] at (0,7.2) {General Resolution};
+      \node[] at (0,-3) {DPLL + CL};
+      \node[] at (0,-0.8) {\tiny Trivial};
+      \node[] at (0,-1.2) {\tiny Resolution};
+      \node[] at (0,6.5) {\color{red}= DPLL + CL + Restarts};
+      \draw[fill=black] (-2.8,0) circle (0.3cm);
+      \draw (-8,0) -- (-2.8,0);
+      \node[] at (-9,0) {2000};
+      \draw[fill=black] (5.5,0) circle (0.3cm);
+      \draw (8,0) --  (5.5,0);
+      \node[] at (9,0) {2002};
+      \draw[fill=red] (3,-2) circle (0.3cm);
+      \draw[color=red] (3,-2) --  (5.5,0);
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
 
 \end{document}
